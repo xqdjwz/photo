@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>快递查照片</title>
+    <style>
+        body { max-width: 500px; margin: 50px auto; text-align: center; font-family: 微软雅黑; }
+        input { width: 100%; padding: 15px; margin: 15px 0; font-size: 18px; border: 1px solid #ddd; border-radius: 8px; }
+        button { width: 100%; padding: 15px; background: #2E8B57; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
+        #img-box { margin-top: 30px; }
+        img { max-width: 100%; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>输入快递单号查看照片</h1>
+    <input type="text" id="inputCode" placeholder="请输入快递单号">
+    <button onclick="query()">查询</button>
+    <div id="img-box"></div>
+  <div class="footer">
+    <a href=" " target="_blank">小旗搭建</a >
+    <span>|</span>
+    <a href="https://github.com/xqdjwz" target="_blank">GitHub</a >
+    <span>|</span>
+    <a href="mailto:your@email.com">联系我</a >
+    <br>
+    <p style="margin-top: 8px;">© 2026 小旗搭建 版权所有</p >
+  </div>
+</div>
+
+    <script>
+        const codeList = {
+            "TEST001": "https://picsum.photos/id/237/800/600",
+            "TEST002": "https://picsum.photos/id/10/800/600"
+        };
+
+        function query() {
+            const code = document.getElementById("inputCode").value.trim();
+            const box = document.getElementById("img-box");
+            box.innerHTML = "";
+
+            if (codeList[code]) {
+                // 【关键修复：用createElement创建元素，彻底避免转义问题】
+                const img = document.createElement("img");
+                img.src = codeList[code];
+                img.alt = "照片";
+                img.style.maxWidth = "100%";
+                img.style.borderRadius = "10px";
+                img.style.boxShadow = "0 0 15px rgba(0,0,0,0.1)";
+                
+                const p = document.createElement("p");
+                p.textContent = "这是您的专属照片";
+                p.style.color = "#666";
+                p.style.marginTop = "10px";
+
+                box.appendChild(img);
+                box.appendChild(p);
+            } else {
+                alert("单号不存在，请核对后重试");
+            }
+        }
+    </script>
+</body>
+</html>
